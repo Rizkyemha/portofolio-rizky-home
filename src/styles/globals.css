@@ -52,17 +52,23 @@ body {
 }
 
 body {
+	max-width: 1520px;
+	margin: 0 auto;
 	color: var(--foreground);
 	background: var(--background);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Space Grotesk", helvetica, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.content {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
 * {
 	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
 }
 
 a {
@@ -112,6 +118,7 @@ a {
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
+	--sizing-content: var(--sizing-content);
 }
 
 .dark {
@@ -149,10 +156,10 @@ a {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+	* {
+		@apply border-border outline-ring/50;
 	}
-  body {
-    @apply bg-background text-foreground;
+	body {
+		@apply bg-background text-foreground;
 	}
 }

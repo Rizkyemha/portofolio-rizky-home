@@ -6,8 +6,8 @@ import html from "remark-html";
 import { Project, Blog } from "@/src/types";
 
 const contentPathMap = {
-	projects: path.resolve(process.cwd(), "src/content/projects"),
-	blogs: path.resolve(process.cwd(), "src/content/blogs"),
+	projects: path.resolve(process.cwd(), "src/assets/projects"),
+	blogs: path.resolve(process.cwd(), "src/assets/blogs"),
 };
 
 export function getProjects() {
@@ -19,6 +19,7 @@ export function getProjects() {
 		const matterResult = matter(fileContents);
 
 		return {
+			type: "projects",
 			slug,
 			...matterResult.data,
 		};
@@ -36,7 +37,7 @@ export async function getProjectBySlug(slug: string): Promise<Project> {
 	const contentHtml = processedContent.toString();
 
 	return {
-		type: "project",
+		type: "projects",
 		slug,
 		contentHtml,
 		title: data.title,
@@ -58,6 +59,7 @@ export function getBlogs() {
 		const matterResult = matter(fileContents);
 
 		return {
+			type: "blogs",
 			slug,
 			...matterResult.data,
 		};
@@ -75,7 +77,7 @@ export async function getBlogBySlug(slug: string): Promise<Blog> {
 	const contentHtml = processedContent.toString();
 
 	return {
-		type: "blog",
+		type: "blogs",
 		slug,
 		contentHtml,
 		title: data.title,

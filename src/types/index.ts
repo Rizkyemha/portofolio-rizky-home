@@ -1,4 +1,5 @@
 export interface ContentMetadata {
+	type: "projects" | "blogs";
 	slug: string;
 	title: string;
 	date: string;
@@ -8,13 +9,11 @@ export interface ContentMetadata {
 }
 
 export interface Project extends ContentMetadata {
-	type: "project";
 	url?: string;
 	repo?: string;
 	contentHtml?: string;
 }
 
 export interface Blog extends ContentMetadata {
-	type: "blog";
 	contentHtml?: string;
 }
