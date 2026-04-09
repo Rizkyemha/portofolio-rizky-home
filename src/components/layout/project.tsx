@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { type Project as ProjectProps, type Blog as BlogProps } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
+import { Search } from "lucide-react";
+import { QuickPreview, QuickPreview2 } from "@/components/layout/quickPreview";
 
 interface Props extends ProjectProps, BlogProps {
 	className?: string;
@@ -32,7 +34,7 @@ export const Project = ({
 }: Props) => {
 	return (
 		<Link href={`/${props.type}/${props.slug}`}>
-			<div className='fade-in group overflow-hidden relative min-w-fit h-fit rounded-xl hover:cursor-pointer'>
+			<div className='group overflow-hidden relative min-w-fit h-fit rounded-xl hover:cursor-pointer'>
 				<div
 					className={cn(
 						!px && "px-0",
@@ -61,7 +63,7 @@ export const Project = ({
 						!pb && "pb-0",
 						className
 					)}>
-					<CardContent className='w-full aspect-auto flex flex-col space-y-4'>
+					<CardContent className='w-full h-full flex flex-col space-y-4'>
 						<div className='flex flex-col space-y-2'>
 							<CardTitle>{props.title}</CardTitle>
 							<p className='text-sm'>{props.date}</p>
@@ -69,7 +71,7 @@ export const Project = ({
 						<CardDescription className='bg-transparent line-clamp-3'>
 							{props.excerpt}
 						</CardDescription>
-						<div className='space-x-1'>
+						<div className='space-x-1 mt-auto'>
 							{props.tags.slice(0, 4).map((tag) => (
 								<Badge variant='default' key={tag}>
 									{tag}
@@ -80,5 +82,49 @@ export const Project = ({
 				</Card>
 			</div>
 		</Link>
+	);
+};
+
+interface ContentProps extends ProjectProps, BlogProps {
+	className?: string;
+}
+
+export const ContentCard = ({ className = "", ...props }: ContentProps) => {
+	return (
+		<Card className={cn("group/card w-full aspect-auto", className)}>
+			<CardContent className='w-full h-full flex flex-col space-y-4'>
+				<div
+					className={cn(
+						"relative flex items-center rounded-lg overflow-hidden aspect-square md:aspect-video bg-primary"
+					)}>
+					<Image
+						width={712}
+						height={400}
+						src={props.coverImage}
+						alt={props.title}
+						className='w-full h-full object-cover scale-100 group-hover/card:scale-110 group-hover/card:brightness-50 transition-all duration-300 ease-in-out '
+					/>
+					<QuickPreview
+						className='absolute top-[1rem] right-[1rem] md:-top-[4rem] md:group-hover/card:top-[1rem] md:group-hover/card:right-[1rem] h-fit p-2.5 rounded-full bg-background text-foreground md:group-hover/card:bg-foreground md:group-hover/card:text-background transition-all duration-300 ease-in-out hover:cursor-pointer hover:scale-105'
+						{...props}>
+						<Search className='aspect-square' size={25} />
+					</QuickPreview>
+				</div>
+				<div className='flex flex-col space-y-2 self-start'>
+					<CardTitle>{props.title}</CardTitle>
+					<p className='text-sm text-left'>{props.date}</p>
+				</div>
+				<CardDescription className='bg-transparent line-clamp-3 self-start text-left'>
+					{props.excerpt}
+				</CardDescription>
+				<div className='space-x-1 self-start mt-auto'>
+					{props.tags.slice(0, 4).map((tag) => (
+						<Badge variant='default' key={tag}>
+							{tag}
+						</Badge>
+					))}
+				</div>
+			</CardContent>
+		</Card>
 	);
 };

@@ -1,6 +1,17 @@
 import Head from "next/head";
+import { Hero } from "@/components/layout/hero";
+import { getProjects } from "@/lib/api";
+import { Project } from "@/types";
+import { ContentCard } from "@/components/layout/project";
 
-export default function ProjectsPage() {
+export async function getStaticProps() {
+	const projects = await getProjects();
+	return {
+		props: { projects },
+	};
+}
+
+export default function ProjectsPage({ projects }: { projects: Project[] }) {
 	return (
 		<>
 			<Head>
@@ -12,8 +23,19 @@ export default function ProjectsPage() {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<div className='flex flex-col space-y-8'>
-				<h1>Projects</h1>
+			<div className='flex flex-col space-y-11 md:space-y-16 lg:space-y-20 xl:space-y-24'>
+				<Hero
+					header='Project Portfolio'
+					description='Kumpulan proyek pilihan yang menunjukkan keahlian saya dalam merancang, membangun, dan menerapkan solusi web yang efektif dan ramah pengguna.'
+					cta='Lihat Semua Proyek'
+				/>
+				<div className='max-w-full md:max-w-[888px] xl:max-w-[1200px] 2xl:max-w-full content px-4 md:px-8 mx-auto space-y-6'>
+					<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+						{projects.map((project, index) => (
+							<ContentCard key={index} {...project} />
+						))}
+					</div>
+				</div>
 			</div>
 		</>
 	);

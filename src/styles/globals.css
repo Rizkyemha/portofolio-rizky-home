@@ -52,8 +52,7 @@ body {
 }
 
 body {
-	max-width: 1520px;
-	margin: 0 auto;
+	width: 100vw;
 	color: var(--foreground);
 	background: var(--background);
 	font-family: "Space Grotesk", helvetica, sans-serif;
